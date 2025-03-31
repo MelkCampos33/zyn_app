@@ -75,17 +75,21 @@ public class NutriApp {
                     String userName = table.getValueAt(selectedRow, 0).toString();
                     int confirmedDelete = JOptionPane.showConfirmDialog(frame,
                             "Tem certeza que deseja excluir o usuário: " + userName + "?",
-                            "Confirmação", JOptionPane.YES_OPTION);
+                            "Confirmação", JOptionPane.YES_NO_OPTION);
 
                     if (confirmedDelete == JOptionPane.YES_OPTION) {
-                        if (userdatabase.removeUser(userName)) {
-                            try {
-                                loadTable();
-                            } catch (SQLException | ClassNotFoundException e) {
-                                throw new RuntimeException(e);
+                        try {
+                            if (userdatabase.removeUser(userName)) {
+                                try {
+                                    loadTable();
+                                } catch (SQLException | ClassNotFoundException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(frame, "Falha ao excluir o usuário.");
                             }
-                        } else {
-                            JOptionPane.showMessageDialog(frame, "Falha ao excluir o usuário.");
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
                         }
                     }
                 } else {
