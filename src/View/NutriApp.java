@@ -52,8 +52,10 @@ public class NutriApp {
                         User newUser = new User(name, age);
                         userdatabase.addUser(newUser);
                         loadTable();
-                    } catch (NumberFormatException | SQLException e) {
+                    } catch (NumberFormatException e) {
                         JOptionPane.showMessageDialog(frame, "Idade inválida. Por favor, insira um número inteiro.");
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(frame, "Erro ao acessar o banco de dados: " + e.getMessage());
                     } catch (ClassNotFoundException e) {
                         throw new RuntimeException(e);
                     }
@@ -73,17 +75,21 @@ public class NutriApp {
                     String userName = table.getValueAt(selectedRow, 0).toString();
                     int confirmedDelete = JOptionPane.showConfirmDialog(frame,
                             "Tem certeza que deseja excluir o usuário: " + userName + "?",
-                            "Confirmação", JOptionPane.YES_OPTION);
+                            "Confirmação", JOptionPane.YES_NO_OPTION);
 
                     if (confirmedDelete == JOptionPane.YES_OPTION) {
-                        if (userdatabase.removeUser(userName)) {
-                            try {
-                                loadTable();
-                            } catch (SQLException | ClassNotFoundException e) {
-                                throw new RuntimeException(e);
+                        try {
+                            if (userdatabase.removeUser(userName)) {
+                                try {
+                                    loadTable();
+                                } catch (SQLException | ClassNotFoundException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(frame, "Falha ao excluir o usuário.");
                             }
-                        } else {
-                            JOptionPane.showMessageDialog(frame, "Falha ao excluir o usuário.");
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
                         }
                     }
                 } else {
