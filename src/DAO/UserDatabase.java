@@ -29,7 +29,7 @@ public class UserDatabase {
 
     public List<User> listUsers() throws SQLException, ClassNotFoundException {
         List<User> users = new ArrayList<>();
-        String sql = "SELECT * FROM users";
+        String sql = "SELECT * FROM db";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
