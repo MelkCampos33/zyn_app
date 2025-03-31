@@ -52,8 +52,10 @@ public class NutriApp {
                         User newUser = new User(name, age);
                         userdatabase.addUser(newUser);
                         loadTable();
-                    } catch (NumberFormatException | SQLException e) {
+                    } catch (NumberFormatException e) {
                         JOptionPane.showMessageDialog(frame, "Idade inválida. Por favor, insira um número inteiro.");
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(frame, "Erro ao acessar o banco de dados: " + e.getMessage());
                     } catch (ClassNotFoundException e) {
                         throw new RuntimeException(e);
                     }
