@@ -3,6 +3,7 @@
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/../../../../apps/jfreechart-1.0.19/jfreechart-1.0.19-demo.jar!/" />
       <root url="file://$PROJECT_DIR$/../../../../apps/jfreechart-1.0.19/lib" />
+      <root url="jar://$PROJECT_DIR$/../../../../arquivos para programar/jar/mysql-connector-j-9.1.0/mysql-connector-j-9.1.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

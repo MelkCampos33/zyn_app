@@ -4,12 +4,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
-    public static Connection getConnection() throws SQLException {
+    public static Connection getConnection() throws SQLException, ClassNotFoundException {
 
         String url = "jdbc:mysql://localhost:3306/nutri_app_db";
         String user = "root";
-        String password = "Banco033@";
+        String password = "";
 
+        Class.forName("com.mysql.cj.jdbc.Driver");
         return DriverManager.getConnection(url, user, password);
     }
 }

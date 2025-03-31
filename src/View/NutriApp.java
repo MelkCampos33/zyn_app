@@ -14,12 +14,12 @@ public class NutriApp {
     private JTable table;
     private final UserDatabase userdatabase;
 
-    public NutriApp() {
+    public NutriApp() throws SQLException, ClassNotFoundException {
         userdatabase = new UserDatabase();
         initialize();
     }
 
-    private void initialize() {
+    private void initialize() throws SQLException, ClassNotFoundException {
         frame = new JFrame();
         frame.setTitle("ZYN - Gerenciamento de Saúde");
         frame.setBounds(100, 100, 800, 600);
@@ -54,6 +54,8 @@ public class NutriApp {
                         loadTable();
                     } catch (NumberFormatException | SQLException e) {
                         JOptionPane.showMessageDialog(frame, "Idade inválida. Por favor, insira um número inteiro.");
+                    } catch (ClassNotFoundException e) {
+                        throw new RuntimeException(e);
                     }
                 } else {
                     JOptionPane.showMessageDialog(frame, "Os campos não podem estar vazios.");
@@ -75,7 +77,11 @@ public class NutriApp {
 
                     if (confirmedDelete == JOptionPane.YES_OPTION) {
                         if (userdatabase.removeUser(userName)) {
-                            loadTable();
+                            try {
+                                loadTable();
+                            } catch (SQLException | ClassNotFoundException e) {
+                                throw new RuntimeException(e);
+                            }
                         } else {
                             JOptionPane.showMessageDialog(frame, "Falha ao excluir o usuário.");
                         }
@@ -91,7 +97,7 @@ public class NutriApp {
         loadTable();
     }
 
-    private void loadTable() {
+    private void loadTable() throws SQLException, ClassNotFoundException {
         List<User> users = userdatabase.listUsers();
         String[] col = {"Nome", "Idade"};
         Object[][] dados = new Object[users.size()][2];
