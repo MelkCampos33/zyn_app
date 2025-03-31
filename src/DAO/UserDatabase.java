@@ -31,35 +31,25 @@ public class UserDatabase {
         List<User> users = new ArrayList<>();
         String sql = "SELECT * FROM db";
 
-        try (Connection conn = DatabaseConnection.getConnection()) {
-            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                try (ResultSet rs = stmt.executeQuery()) {
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
 
-                    while (rs.next()) {
-                        User user = new User();
-                        user.setId(rs.getInt("id"));
-                        user.setName(rs.getString("name"));
-                        user.setAge(rs.getInt("age"));
-                        user.setWeight(rs.getDouble("weight"));
-                        user.setHeight(rs.getDouble("height"));
-                        user.setImc(rs.getDouble("imc"));
-                        users.add(user);
-                    }
-                }
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setAge(rs.getInt("age"));
+                user.setWeight(rs.getDouble("weight"));
+                user.setHeight(rs.getDouble("height"));
+                user.setImc(rs.getDouble("imc"));
+                users.add(user);
             }
         }
         return users;
     }
-    public boolean removeUser(String name) throws SQLException {
-        String sql = "DELETE FROM db WHERE name = ?";
-
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, name);
-            int rowsAffected = stmt.executeUpdate(); // Retorna quantas linhas foram afetadas
-            return rowsAffected > 0;
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException("Erro ao conectar ao banco.", e);
-        }
+    private List<User> users;
+    public boolean removeUser(String name) {
+        return users.removeIf(user -> user.getName().equals(name));
     }
 }

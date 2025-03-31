@@ -8,7 +8,7 @@ public class DatabaseConnection {
 
         String url = "jdbc:mysql://localhost:3306/nutri_app_db";
         String user = "root";
-        String password = "Password";
+        String password = "";
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         return DriverManager.getConnection(url, user, password);

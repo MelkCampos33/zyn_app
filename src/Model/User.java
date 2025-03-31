@@ -1,5 +1,7 @@
 package Model;
 
+import javax.swing.*;
+
 public class User {
     private int id;
     private String name;
@@ -84,4 +86,17 @@ public class User {
         }
     }
 
+    public class UserFrame extends JFrame {
+        public UserFrame() {
+            setTitle("Área do Usuário");
+            setSize(300,200);
+            setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            setLocationRelativeTo(null);
+
+            JLabel label = new JLabel("Seja Bem Vindo ao Zyn!", SwingConstants.CENTER);
+            add(label);
+
+            setVisible(true);
+        }
+    }
 }
