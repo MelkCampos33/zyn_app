@@ -84,11 +84,9 @@ public class Login extends JFrame {
             if (rs.next()) {
                 String role = rs.getString("role");
                 JOptionPane.showMessageDialog(this, "Login bem-sucedido como " + role + "!");
+                this.dispose();
+                new Dashboard(username);
 
-                if (role.equalsIgnoreCase("admin")) {
-                    new User();
-                }
-                dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Usuário ou senha incorretos!", "Erro", JOptionPane.ERROR_MESSAGE);
             }

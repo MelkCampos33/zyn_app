@@ -5,6 +5,7 @@ import javax.swing.*;
 public class User {
     private int id;
     private String name;
+    private String password;
     private int age;
     private double weight;
     private double height;
@@ -12,9 +13,10 @@ public class User {
 
     public User() {}
 
-    public User(int id, String name, int age, double weight, double height) {
+    public User(int id, String name, String password,int age, double weight, double height) {
         this.id = id;
         this.name = name;
+        this.password = password;
         this.age = age;
         this.weight = weight;
         this.height = height;
@@ -40,6 +42,14 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getAge() {
@@ -85,6 +95,7 @@ public class User {
             return 0;
         }
     }
+
 
     public class UserFrame extends JFrame {
         public UserFrame() {

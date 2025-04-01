@@ -12,15 +12,16 @@ import Model.User;
 public class UserDatabase {
 
     public void addUser(User user) throws SQLException {
-        String sql = "INSERT INTO db (name, age, weight, height, imc) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO db (name, password, age, weight, height, imc) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, user.getName());
-            stmt.setInt(2, user.getAge());
-            stmt.setDouble(3, user.getWeight());
-            stmt.setDouble(4, user.getHeight());
-            stmt.setDouble(5, user.CalculateImc());
+            stmt.setString(2, user.getPassword());
+            stmt.setInt(3, user.getAge());
+            stmt.setDouble(4, user.getWeight());
+            stmt.setDouble(5, user.getHeight());
+            stmt.setDouble(6, user.CalculateImc());
             stmt.executeUpdate();
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
